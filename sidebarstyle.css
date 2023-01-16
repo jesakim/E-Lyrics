@@ -1,0 +1,203 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  padding-left: 6rem;
+}
+
+.sidebar {
+  height: 110vh;
+  width: 5rem;
+  background-color: #333;
+  position: fixed;
+  color: aliceblue;
+  font-size: xx-large;
+  padding-top: 50px;
+  transition: width 0.5s ease;
+}
+.sidebar .arrow {
+  font-size: xx-large;
+  position: absolute;
+  right: 10px;
+  transition: transform 0.5s;
+  top: 10px;
+}
+.sidebar .navitem {
+  width: 100%;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.sidebar .navitem:hover {
+  background-color: #0f0;
+  color: #333;
+  cursor: pointer;
+}
+.sidebar .navitem span {
+  font-size: large;
+  display: none;
+}
+.sidebar:hover {
+  width: 10rem;
+}
+.sidebar:hover span {
+  display: block;
+}
+.sidebar:hover .arrow {
+  transform: rotate(180deg);
+}
+
+.navbar {
+  height: 3rem;
+  background-color: #0f0;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  padding-right: 10px;
+}
+.navbar .search {
+  position: relative;
+}
+.navbar .search i {
+  position: absolute;
+  left: 10px;
+  top: 7px;
+  color: rgb(89, 89, 89);
+}
+.navbar .search input {
+  border: none;
+  outline: none;
+  margin-right: 10px;
+  padding: 7px;
+  border-radius: 50rem;
+  padding-left: 30px;
+  padding-right: 0px;
+}
+
+.modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  pointer-events: none;
+  width: 97vw;
+}
+.modal:has(.popup.active) {
+  pointer-events: all;
+}
+.modal .popup {
+  width: 70%;
+  background-color: rgb(146, 145, 145);
+  position: relative;
+  border-radius: 5px;
+  transition: transform 0.5s;
+  transform: perspective(1000px) rotateY(80deg) scale(0);
+}
+.modal .popup.active {
+  transform: perspective(1000px) rotateY(0deg) scale(1);
+  padding-top: 30px;
+}
+.modal .popup .fa-xmark {
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  font-size: x-large;
+  color: rgb(89, 89, 89);
+  cursor: pointer;
+}
+.modal .popup .fa-xmark:hover {
+  color: #333;
+}
+.modal .popup .form {
+  width: 100%;
+  padding-top: 10px;
+  border-top: 1px solid #333;
+  border-bottom: 1px solid #333;
+  display: grid;
+}
+.modal .popup .form .inputbox {
+  position: relative;
+  padding: 3px;
+}
+.modal .popup .form .inputbox:nth-child(1) {
+  grid-column: 1/12;
+}
+.modal .popup .form .inputbox:nth-child(2) {
+  grid-column: 1/6;
+}
+.modal .popup .form .inputbox:nth-child(3) {
+  grid-column: 6/12;
+}
+.modal .popup .form .inputbox:nth-child(4) {
+  grid-column: 1/12;
+}
+.modal .popup .form .inputbox input, .modal .popup .form .inputbox textarea {
+  position: relative;
+  resize: vertical;
+  width: 100%;
+  background-color: #333;
+  border: none;
+  outline: none;
+  padding: 25px 10px 7.5px;
+  border-radius: 4px;
+  color: #fff;
+  font-weight: 500;
+  font-size: 1rem;
+}
+.modal .popup .form .inputbox input:not(:-moz-placeholder-shown) ~ span, .modal .popup .form .inputbox textarea:not(:-moz-placeholder-shown) ~ span {
+  transform: translateY(-10px);
+  font-size: 0.8em;
+  color: #fff;
+}
+.modal .popup .form .inputbox input:not(:-ms-input-placeholder) ~ span, .modal .popup .form .inputbox textarea:not(:-ms-input-placeholder) ~ span {
+  transform: translateY(-10px);
+  font-size: 0.8em;
+  color: #fff;
+}
+.modal .popup .form .inputbox input:focus ~ span, .modal .popup .form .inputbox input:not(:placeholder-shown) ~ span, .modal .popup .form .inputbox textarea:focus ~ span, .modal .popup .form .inputbox textarea:not(:placeholder-shown) ~ span {
+  transform: translateY(-10px);
+  font-size: 0.8em;
+  color: #fff;
+}
+.modal .popup .form .inputbox span {
+  position: absolute;
+  left: 0;
+  padding: 15px 10px;
+  transition: 0.5s;
+  pointer-events: none;
+  color: #aaa;
+}
+.modal .popup .form .inputbox input[type=submit] {
+  padding: 10px;
+  background-color: #0f0;
+  color: #111;
+  font-size: 1.25em;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  cursor: pointer;
+}
+.modal .popup .popupfooter {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+.modal .popup .popupfooter .buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-right: 10px;
+  color: #fff;
+  font-size: x-large;
+  cursor: default;
+}
+.modal .popup .popupfooter .buttons button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  font-size: x-large;
+}/*# sourceMappingURL=sidebarstyle.css.map */

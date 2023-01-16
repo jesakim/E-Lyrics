@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+    <link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet'>
+    <link rel="stylesheet" href="sidebarstyle.css">
+    <title>dashboard</title>
+</head>
+<body>
+    <nav class="sidebar">
+        <i class="arrow fa-solid fa-angles-right"></i>
+        <div class="navitem">
+            <i class="fa-solid fa-chart-line"></i>
+             <span>Dashboard</span> 
+        </div>
+        <div class="navitem">
+            <i class="fa-solid fa-table-cells-large"></i>
+             <span>Songs</span> 
+        </div>
+    </nav>
+    <nav class="navbar">
+        <div class="search">
+            <input type="text">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+        
+        <div style="font-family: Orbitron;" id="MyClockDisplay" class="clock">hhhhhhhhhhhhhhhhh</div>
+    </nav>
+    <div class="modal">
+        <div class="popup">
+            <i class="fa-solid fa-xmark" onclick="popuphide()"></i>
+            <div class="form">
+                <div class="inputbox">
+                    <input type="text" placeholder=" " required>
+                    <span> Song Name</span>
+                </div>
+                <span class="inputbox">
+                    <input type="text" placeholder=" " required>
+                    <span>Singer Name</span>
+                </span>
+                <div class="inputbox">
+                    <input type="text" placeholder=" " required>
+                    <span>Album Name</span>
+                </div>
+                <div class="inputbox">
+                    <textarea name="" id="" placeholder=" "></textarea>
+                    <span>lyrics</span>
+                </div>
+            </div>
+            <div class="popupfooter">
+            <div class="buttons">
+                <button onclick="addorremoveform(-1)"><i class="fa-solid fa-minus"></i></button>
+                <span id="counter">1</span>
+                <button onclick="addorremoveform(1)"><i class="fa-solid fa-plus"></i></button>
+            </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <button onclick="popupshow()">add song</button>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni minima necessitatibus, harum corporis odio aut? Ipsa, eveniet? Tempora nesciunt iste quo, culpa voluptas amet repudiandae necessitatibus unde pariatur vitae ullam.
+</div>
+<script>
+      function showTime(){
+    var date = new Date();
+    var h = date.getHours(); // 0 - 23
+    var m = date.getMinutes(); // 0 - 59
+    var s = date.getSeconds(); // 0 - 59
+    var session = "AM";
+    
+    if(h == 0){
+        h = 12;
+    }
+    
+    if(h > 12){
+        h = h - 12;
+        session = "PM";
+    }
+    
+    h = (h < 10) ? "0" + h : h;
+    m = (m < 10) ? "0" + m : m;
+    s = (s < 10) ? "0" + s : s;
+    
+    var time = h + ":" + m + ":" + s + " " + session;
+    document.getElementById("MyClockDisplay").innerText = time;
+    
+    setTimeout(showTime, 1000);
+    
+}
+showTime();
+var modal = document.getElementsByClassName("popup")[0]
+function popupshow(){
+    modal.classList.add("active");
+}
+
+function popuphide(){
+    modal.innerHTML = ` <i class="fa-solid fa-xmark" onclick="popuphide()"></i>
+            <div class="form">
+                <div class="inputbox">
+                    <input type="text" placeholder=" " required>
+                    <span> Song Name</span>
+                </div>
+                <span class="inputbox">
+                    <input type="text" placeholder=" " required>
+                    <span>Singer Name</span>
+                </span>
+                <div class="inputbox">
+                    <input type="text" placeholder=" " required>
+                    <span>Album Name</span>
+                </div>
+                <div class="inputbox">
+                    <textarea name="" id="" placeholder=" "></textarea>
+                    <span>lyrics</span>
+                </div>
+            </div>
+            <div class="popupfooter">
+            <div class="buttons">
+                <button onclick="addorremoveform(-1)"><i class="fa-solid fa-minus"></i></button>
+                <span id="counter">1</span>
+                <button onclick="addorremoveform(1)"><i class="fa-solid fa-plus"></i></button>
+            </div>
+            </div>`
+    modal.classList.remove("active");
+    formscount = 1
+}
+
+var formscount = 1
+
+function addorremoveform(num){
+    formscount += num
+    if(formscount < 1){formscount=1}
+    console.log(formscount);
+    modal.innerHTML=`<i class="fa-solid fa-xmark" onclick="popuphide()"></i>`
+    for(let i = 0;i<formscount;i++){
+        modal.innerHTML+=`<div class="form">
+                <div class="inputbox">
+                    <input type="text" placeholder=" " required>
+                    <span> Song Name</span>
+                </div>
+                <span class="inputbox">
+                    <input type="text" placeholder=" " required>
+                    <span>Singer Name</span>
+                </span>
+                <div class="inputbox">
+                    <input type="text" placeholder=" " required>
+                    <span>Album Name</span>
+                </div>
+                <div class="inputbox">
+                    <textarea name="" id="" placeholder=" "></textarea>
+                    <span>lyrics</span>
+                </div>
+            </div>`
+}
+modal.innerHTML+=`<div class="popupfooter">
+            <div class="buttons">
+                <button onclick="addorremoveform(-1)"><i class="fa-solid fa-minus"></i></button>
+                <span id="counter">1</span>
+                <button onclick="addorremoveform(1)"><i class="fa-solid fa-plus"></i></button>
+            </div>
+            </div>`
+document.getElementById("counter").innerText = formscount;
+}
+</script>
+</body>
+</html>
