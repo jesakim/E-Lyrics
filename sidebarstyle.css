@@ -4,7 +4,7 @@
   padding: 0;
 }
 
-.container {
+.cotainer {
   padding-left: 6rem;
 }
 
@@ -16,6 +16,7 @@
   color: aliceblue;
   font-size: xx-large;
   padding-top: 50px;
+  z-index: 999;
   transition: width 0.5s ease;
 }
 .sidebar .arrow {
@@ -58,6 +59,7 @@
   align-items: center;
   justify-content: end;
   padding-right: 10px;
+  padding-bottom: 45px;
 }
 .navbar .search {
   position: relative;
@@ -65,7 +67,7 @@
 .navbar .search i {
   position: absolute;
   left: 10px;
-  top: 7px;
+  top: 13px;
   color: rgb(89, 89, 89);
 }
 .navbar .search input {
@@ -78,7 +80,7 @@
   padding-right: 0px;
 }
 
-.modal {
+.modl {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -86,10 +88,10 @@
   pointer-events: none;
   width: 97vw;
 }
-.modal:has(.popup.active) {
+.modl:has(.popup.active) {
   pointer-events: all;
 }
-.modal .popup {
+.modl .popup {
   width: 70%;
   background-color: rgb(146, 145, 145);
   position: relative;
@@ -97,11 +99,11 @@
   transition: transform 0.5s;
   transform: perspective(1000px) rotateY(80deg) scale(0);
 }
-.modal .popup.active {
+.modl .popup.active {
   transform: perspective(1000px) rotateY(0deg) scale(1);
   padding-top: 30px;
 }
-.modal .popup .fa-xmark {
+.modl .popup .fa-xmark {
   position: absolute;
   right: 10px;
   top: 5px;
@@ -109,33 +111,33 @@
   color: rgb(89, 89, 89);
   cursor: pointer;
 }
-.modal .popup .fa-xmark:hover {
+.modl .popup .fa-xmark:hover {
   color: #333;
 }
-.modal .popup .form {
+.modl .form {
   width: 100%;
   padding-top: 10px;
   border-top: 1px solid #333;
   border-bottom: 1px solid #333;
   display: grid;
 }
-.modal .popup .form .inputbox {
+.modl .form .inputbox {
   position: relative;
   padding: 3px;
 }
-.modal .popup .form .inputbox:nth-child(1) {
+.modl .form .inputbox:nth-child(1) {
   grid-column: 1/12;
 }
-.modal .popup .form .inputbox:nth-child(2) {
+.modl .form .inputbox:nth-child(2) {
   grid-column: 1/6;
 }
-.modal .popup .form .inputbox:nth-child(3) {
+.modl .form .inputbox:nth-child(3) {
   grid-column: 6/12;
 }
-.modal .popup .form .inputbox:nth-child(4) {
+.modl .form .inputbox:nth-child(4) {
   grid-column: 1/12;
 }
-.modal .popup .form .inputbox input, .modal .popup .form .inputbox textarea {
+.modl .form .inputbox input, .modl .form .inputbox textarea {
   position: relative;
   resize: vertical;
   width: 100%;
@@ -148,22 +150,22 @@
   font-weight: 500;
   font-size: 1rem;
 }
-.modal .popup .form .inputbox input:not(:-moz-placeholder-shown) ~ span, .modal .popup .form .inputbox textarea:not(:-moz-placeholder-shown) ~ span {
+.modl .form .inputbox input:not(:-moz-placeholder-shown) ~ span, .modl .form .inputbox textarea:not(:-moz-placeholder-shown) ~ span {
   transform: translateY(-10px);
   font-size: 0.8em;
   color: #fff;
 }
-.modal .popup .form .inputbox input:not(:-ms-input-placeholder) ~ span, .modal .popup .form .inputbox textarea:not(:-ms-input-placeholder) ~ span {
+.modl .form .inputbox input:not(:-ms-input-placeholder) ~ span, .modl .form .inputbox textarea:not(:-ms-input-placeholder) ~ span {
   transform: translateY(-10px);
   font-size: 0.8em;
   color: #fff;
 }
-.modal .popup .form .inputbox input:focus ~ span, .modal .popup .form .inputbox input:not(:placeholder-shown) ~ span, .modal .popup .form .inputbox textarea:focus ~ span, .modal .popup .form .inputbox textarea:not(:placeholder-shown) ~ span {
+.modl .form .inputbox input:focus ~ span, .modl .form .inputbox input:not(:placeholder-shown) ~ span, .modl .form .inputbox textarea:focus ~ span, .modl .form .inputbox textarea:not(:placeholder-shown) ~ span {
   transform: translateY(-10px);
   font-size: 0.8em;
   color: #fff;
 }
-.modal .popup .form .inputbox span {
+.modl .form .inputbox span {
   position: absolute;
   left: 0;
   padding: 15px 10px;
@@ -171,21 +173,23 @@
   pointer-events: none;
   color: #aaa;
 }
-.modal .popup .form .inputbox input[type=submit] {
-  padding: 10px;
-  background-color: #0f0;
-  color: #111;
-  font-size: 1.25em;
-  font-weight: 600;
-  letter-spacing: 0.25em;
-  cursor: pointer;
-}
-.modal .popup .popupfooter {
+.modl .popupfooter {
   display: flex;
   align-items: center;
-  justify-content: end;
+  justify-content: space-between;
 }
-.modal .popup .popupfooter .buttons {
+.modl .popupfooter .addbtn {
+  background-color: #0f0;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  margin-left: 20px;
+  cursor: pointer;
+}
+.modl .popupfooter .addbtn:hover {
+  background-color: rgb(4, 189, 4);
+}
+.modl .popupfooter .buttons {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -194,7 +198,7 @@
   font-size: x-large;
   cursor: default;
 }
-.modal .popup .popupfooter .buttons button {
+.modl .popupfooter .buttons button {
   background-color: transparent;
   border: none;
   cursor: pointer;

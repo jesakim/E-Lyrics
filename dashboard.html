@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet'>
     <link rel="stylesheet" href="sidebarstyle.css">
     <title>dashboard</title>
@@ -20,6 +22,14 @@
             <i class="fa-solid fa-table-cells-large"></i>
              <span>Songs</span> 
         </div>
+        <div class="navitem" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <i class="fa-solid fa-plus"></i>
+             <span>Add Songs</span> 
+        </div>
+        <div class="navitem">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+             <span>Logout</span> 
+        </div>
     </nav>
     <nav class="navbar">
         <div class="search">
@@ -29,28 +39,29 @@
         
         <div style="font-family: Orbitron;" id="MyClockDisplay" class="clock">hhhhhhhhhhhhhhhhh</div>
     </nav>
-    <div class="modal">
+    <!-- <div class="modl">
         <div class="popup">
             <i class="fa-solid fa-xmark" onclick="popuphide()"></i>
             <div class="form">
                 <div class="inputbox">
-                    <input type="text" placeholder=" " required>
+                    <input type="text" id="name0" placeholder=" " required>
                     <span> Song Name</span>
                 </div>
                 <span class="inputbox">
-                    <input type="text" placeholder=" " required>
+                    <input type="text" id="singer0" placeholder=" " required>
                     <span>Singer Name</span>
                 </span>
                 <div class="inputbox">
-                    <input type="text" placeholder=" " required>
+                    <input type="text" id="album0" placeholder=" " required>
                     <span>Album Name</span>
                 </div>
                 <div class="inputbox">
-                    <textarea name="" id="" placeholder=" "></textarea>
+                    <textarea name="" id="lyrics0" placeholder=" "></textarea>
                     <span>lyrics</span>
                 </div>
             </div>
             <div class="popupfooter">
+                <button class="addbtn" onclick="addsongs()">Add Songs</button>
             <div class="buttons">
                 <button onclick="addorremoveform(-1)"><i class="fa-solid fa-minus"></i></button>
                 <span id="counter">1</span>
@@ -58,13 +69,132 @@
             </div>
             </div>
         </div>
-    </div>
+    </div> -->
     
-    <div class="container">
-        <button onclick="popupshow()">add song</button>
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni minima necessitatibus, harum corporis odio aut? Ipsa, eveniet? Tempora nesciunt iste quo, culpa voluptas amet repudiandae necessitatibus unde pariatur vitae ullam.
+    <div class="cotainer">
+        <button style="background-color: #0f0;color:#333;outline:none;" class="btn rounded-pill fw-bold mt-1 outline-none" data-bs-toggle="modal" data-bs-target="#exampleModal">add song</button>
+        <div class="row w-100">
+        <div class="p-1 col-12 col-md-6">
+            <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Songs</h5>
+              <div class="d-flex align-items-center">
+                <div style="background-color: #0f0;height: 80px;width: 80px;color:#333;" class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="fa-solid fa-music fs-3"></i>
+                </div>
+                <div class="ps-4">
+                  <h3>2</h3>
+                </div>
+              </div>
+            </div>
+            </div>
+            </div>
+            <div class="p-1 col-12 col-md-6">
+                <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Albums</h5>
+                  <div class="d-flex align-items-center">
+                    <div style="background-color: #0f0;height: 80px;width: 80px;color:#333;" class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                        <i class="fa-solid fa-compact-disc fs-3"></i>
+                    </div>
+                    <div class="ps-4">
+                      <h3>2</h3>
+                    </div>
+                  </div>
+                </div>
+                </div>
+                </div>
+                <div class="p-1 col-12 col-md-6">
+                    <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">Singers</h5>
+                      <div class="d-flex align-items-center">
+                        <div style="background-color: #0f0;height: 80px;width: 80px;color:#333;" class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                            <i class="fa-solid fa-podcast fs-3"></i>
+                        </div>
+                        <div class="ps-4">
+                          <h3>2</h3>
+                        </div>
+                      </div>
+                    </div>
+                    </div>
+                    </div>
+                    <div class="p-1 col-12 col-md-6">
+                        <div class="card">
+                        <div class="card-body">
+                          <h5 class="card-title">Admins</h5>
+                          <div class="d-flex align-items-center">
+                            <div style="background-color: #0f0;height: 80px;width: 80px;color:#333;" class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                <i class="fa-solid fa-user fs-3"></i>
+                            </div>
+                            <div class="ps-4">
+                              <h3>2</h3>
+                            </div>
+                          </div>
+                        </div>
+                        </div>
+                        </div>
+        </div>
+        <table id="txmpl" class="table table-striped cell-border" style="width:98%">
+            <thead>
+              <tr>
+                <th scope="col">Song Name</th>
+                <th scope="col">Singer Name</th>
+                <th scope="col">Album Name</th>
+                <th scope="col">Lyrics</th>
+              </tr>
+            </thead>
+            <tbody id="tablebody">
+            </tbody>
+          </table>
 </div>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="popuphide()"></button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="form-floating mb-1 col-12">
+                    <input type="text" class="form-control" id="name0" placeholder="name@example.com">
+                    <label for="floatingInput">Song Name</label>
+                  </div>
+                  <div class="form-floating col-6">
+                    <input type="text" class="form-control" id="singer0" placeholder="Password">
+                    <label for="floatingPassword">Singer Name</label>
+                  </div>
+                  <div class="form-floating col-6">
+                    <input type="text" class="form-control" id="album0" placeholder="name@example.com">
+                    <label for="floatingInput">Album Name</label>
+                  </div>
+                  <div class="form-floating col-12 mt-1">
+                    <textarea class="form-control" placeholder="Leave a comment here" id="lyrics0"></textarea>
+                    <label for="floatingTextarea">lyrics</label>
+                  </div>
+            </div>
+        </div>
+        <div class="modal-footer d-flex justify-content-between align-items-center">
+            <div class="m-0 p-0 d-flex flex-column align-items-center">
+                <button class="btn bg-transparent" onclick="addorremoveform(-1)"><i class="fa-solid fa-minus"></i></button>
+                <span id="counter">1</span>
+                <button class="btn bg-transparent" onclick="addorremoveform(1)"><i class="fa-solid fa-plus"></i></button>
+            </div>
+          <button type="button" class="btn btn-primary" onclick="addsongs()">Add Songs</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
+  <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <script>
+    $(document).ready(function () {
+    $('#txmpl').DataTable();
+});
       function showTime(){
     var date = new Date();
     var h = date.getHours(); // 0 - 23
@@ -92,40 +222,29 @@
     
 }
 showTime();
-var modal = document.getElementsByClassName("popup")[0]
-function popupshow(){
-    modal.classList.add("active");
-}
+var modal = document.getElementsByClassName("modal-body")[0]
 
 function popuphide(){
-    modal.innerHTML = ` <i class="fa-solid fa-xmark" onclick="popuphide()"></i>
-            <div class="form">
-                <div class="inputbox">
-                    <input type="text" placeholder=" " required>
-                    <span> Song Name</span>
-                </div>
-                <span class="inputbox">
-                    <input type="text" placeholder=" " required>
-                    <span>Singer Name</span>
-                </span>
-                <div class="inputbox">
-                    <input type="text" placeholder=" " required>
-                    <span>Album Name</span>
-                </div>
-                <div class="inputbox">
-                    <textarea name="" id="" placeholder=" "></textarea>
-                    <span>lyrics</span>
-                </div>
-            </div>
-            <div class="popupfooter">
-            <div class="buttons">
-                <button onclick="addorremoveform(-1)"><i class="fa-solid fa-minus"></i></button>
-                <span id="counter">1</span>
-                <button onclick="addorremoveform(1)"><i class="fa-solid fa-plus"></i></button>
-            </div>
+    modal.innerHTML = `<div class="row">
+                <div class="form-floating mb-1 col-12">
+                    <input type="text" class="form-control" id="name0" placeholder="name@example.com">
+                    <label for="floatingInput">Song Name</label>
+                  </div>
+                  <div class="form-floating col-6">
+                    <input type="text" class="form-control" id="singer0" placeholder="Password">
+                    <label for="floatingPassword">Singer Name</label>
+                  </div>
+                  <div class="form-floating col-6">
+                    <input type="text" class="form-control" id="album0" placeholder="name@example.com">
+                    <label for="floatingInput">Album Name</label>
+                  </div>
+                  <div class="form-floating col-12 mt-1">
+                    <textarea class="form-control" placeholder="Leave a comment here" id="lyrics0"></textarea>
+                    <label for="floatingTextarea">lyrics</label>
+                  </div>
             </div>`
-    modal.classList.remove("active");
     formscount = 1
+    document.getElementById("counter").innerText = formscount;
 }
 
 var formscount = 1
@@ -134,36 +253,68 @@ function addorremoveform(num){
     formscount += num
     if(formscount < 1){formscount=1}
     console.log(formscount);
-    modal.innerHTML=`<i class="fa-solid fa-xmark" onclick="popuphide()"></i>`
+    modal.innerHTML=``
     for(let i = 0;i<formscount;i++){
-        modal.innerHTML+=`<div class="form">
-                <div class="inputbox">
-                    <input type="text" placeholder=" " required>
-                    <span> Song Name</span>
-                </div>
-                <span class="inputbox">
-                    <input type="text" placeholder=" " required>
-                    <span>Singer Name</span>
-                </span>
-                <div class="inputbox">
-                    <input type="text" placeholder=" " required>
-                    <span>Album Name</span>
-                </div>
-                <div class="inputbox">
-                    <textarea name="" id="" placeholder=" "></textarea>
-                    <span>lyrics</span>
-                </div>
+        modal.innerHTML+=`<div class="row my-1">
+                <div class="form-floating mb-1 col-12">
+                    <input type="text" class="form-control" id="name${i}" placeholder="name@example.com">
+                    <label for="floatingInput">Song Name</label>
+                  </div>
+                  <div class="form-floating col-6">
+                    <input type="text" class="form-control" id="singer${i}" placeholder="Password">
+                    <label for="floatingPassword">Singer Name</label>
+                  </div>
+                  <div class="form-floating col-6">
+                    <input type="text" class="form-control" id="album${i}" placeholder="name@example.com">
+                    <label for="floatingInput">Album Name</label>
+                  </div>
+                  <div class="form-floating col-12 mt-1">
+                    <textarea class="form-control" placeholder="Leave a comment here" id="lyrics${i}"></textarea>
+                    <label for="floatingTextarea">lyrics</label>
+                  </div>
             </div>`
 }
-modal.innerHTML+=`<div class="popupfooter">
-            <div class="buttons">
-                <button onclick="addorremoveform(-1)"><i class="fa-solid fa-minus"></i></button>
-                <span id="counter">1</span>
-                <button onclick="addorremoveform(1)"><i class="fa-solid fa-plus"></i></button>
-            </div>
-            </div>`
 document.getElementById("counter").innerText = formscount;
 }
+
+function addsongs(){
+    for(let i = 0;i<formscount;i++){
+        
+    let name = document.getElementById('name'+i).value;
+    let singer = document.getElementById('singer'+i).value;
+    let album = document.getElementById('album'+i).value;
+    let lyrics = document.getElementById('lyrics'+i).value;
+    let data =[name,singer,album,lyrics];
+    fetch("script.php?action=add&data="+JSON.stringify(data))
+}
+}
+
+getsongs()
+
+async function getsongs(){
+    let myObject = await fetch('script.php?action=get');
+    let res = await myObject.json();
+    let tbody = document.getElementById('tablebody')
+    tbody.innerHTML=``;
+    res.forEach(row => {
+        tbody.innerHTML+=`
+        <tr>
+                <th scope="row">${row.song_name}</th>
+                <td>${row.singer_name}</td>
+                <td>${row.album_name}</td>
+                <td><button class="btn btn-success">See Lyrics</button><button onclick="deletesong(${row.id})" class="btn ms-1 btn-danger">Delete</button></td>
+        </tr>
+        `;
+
+    });
+}
+
+async function deletesong(id){
+    console.log(id);
+    await fetch("script.php?action=delete&id="+id)
+    getsongs()
+}
+
 </script>
 </body>
 </html>
