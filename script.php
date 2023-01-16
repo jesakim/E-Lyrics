@@ -45,12 +45,30 @@ class song extends dbcon{
         $exe ->execute([$this->song_name,$this->singer_name,$this->album_name,$this->lyrics,$id]); 
     }
 
+    function updatelyrics($id){
+        $sql = 'UPDATE `songs` SET `lyrics`=? WHERE id = ?';
+        $exe = self::conn() -> prepare($sql);
+        $exe ->execute([$this->lyrics,$id]); 
+    }
+
     static function getsongs(){
         $sql = 'SELECT * FROM songs';
         $exe = self::conn() -> prepare($sql);
         $exe ->execute([]);
         $res = $exe->fetchAll();
         return $res;
+    }
+
+    static function getstatistics(){
+        $sql = 'SELECT COUNT(*) as songscount,COUNT(DISTINCT singer_name) as singerscount,COUNT(DISTINCT album_name) albumscount FROM `songs`;';
+        $exe = self::conn() -> prepare($sql);
+        $exe ->execute([]);
+        $res = $exe->fetch();
+        $sql = 'SELECT COUNT(*) as usercount from users';
+        $exe = self::conn() -> prepare($sql);
+        $exe ->execute([]);
+        $res1 = $exe->fetch();
+        return $res+$res1;
     }
 }
 
@@ -69,5 +87,11 @@ if(isset($_GET['action'])){
        echo json_encode( song::getsongs());
     }elseif ($_GET['action']=='delete') {
         song::deletesong($_GET['id']);
-     }
+    }elseif ($_GET['action']=='updatelyrics') {
+        $song = new song('','','',$_GET['lyrics']);
+        $song->updatelyrics($_GET['id']);
+    }elseif ($_GET['action']=='getstatistics') {
+        echo json_encode(song::getstatistics());
+    }
 }
+
