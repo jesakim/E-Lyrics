@@ -5,6 +5,7 @@
 }
 .cotainer{
     padding-left: 6rem;
+    padding-right: 15px;
 }
 .sidebar{
     height: 110vh;
@@ -16,10 +17,6 @@
     padding-top: 50px;
     z-index: 999;
     transition: width .5s ease;
-    // display: flex;
-    // flex-direction: column;
-    // align-items: center;
-    // justify-content: center;
     .arrow{
         font-size: xx-large;
         // margin: 20px 0px 20px 50px;
@@ -36,6 +33,10 @@
         display: flex;
         align-items: center;
         justify-content: space-evenly;
+        &.active{
+            background-color: #0f0;
+            color: #333; 
+        }
         &:hover{
         background-color: #0f0;
         color: #333;
@@ -64,7 +65,6 @@
     align-items: center;
     justify-content: end;
     padding-right: 10px;
-    padding-bottom: 45px;
     .search{
         position: relative;
 
@@ -205,4 +205,52 @@
             }
         }
         
+    }
+
+.phonesidebar{
+    position: fixed;
+    background-color: #333;
+    width: 100%;
+    height: 5rem;
+    z-index: 999;
+    display: none;
+    left: 0;
+    bottom: 0;
+    color: #fff;
+    align-items: center;
+    justify-content: space-evenly;
+    font-size: xx-large;
+    .navitem{
+        // background-color: rgb(59, 164, 255);
+        width: 100%;
+        height: 100%;
+        // padding-top: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        &.active{
+            background-color: #0f0;
+            color: #333; 
+        }
+        &:hover{
+        background-color: #0f0;
+        color: #333;
+        cursor: pointer;
+
+        }
+
+
+}
+}
+@media (max-width: 600px){
+        .sidebar{
+            display: none;
+        }
+        .cotainer{
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+        .phonesidebar{
+            display: flex;
+        }
     }

@@ -1,3 +1,14 @@
+<?php
+
+include('signin.php');
+
+
+
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -253,13 +264,21 @@
         <div class="signin">
             <div class="content">
                 <h2>Sign In</h2>
-                <div class="form">
+                <?php 
+                if(isset($_SESSION['errormsg'])){
+                    echo ' <div class="error">'.$_SESSION['errormsg'].'</div>';
+                    unset($_SESSION['errormsg']);
+                } 
+                
+                
+                ?>
+                <form class="form" method="post" action="signin.php">
                     <div class="inputbox">
-                        <input type="email" placeholder=" " required>
+                        <input type="email" placeholder=" " required name="email">
                         <i>Email</i>
                     </div>
                     <div class="inputbox">
-                        <input type="password" placeholder=" " required>
+                        <input type="password" placeholder=" " required name="password">
                         <i>Password</i>
                     </div>
                     <div class="link">
@@ -267,9 +286,9 @@
                         <a href="#">Signup</a>
                     </div>
                     <div class="inputbox">
-                        <input type="submit" value="Login">
+                        <input type="submit" value="Login" name="submit">
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </section>

@@ -1,3 +1,18 @@
+<?php
+
+include('signin.php');
+
+if(!isset($_SESSION['user'])){
+  header('Location: index.php');
+}
+
+
+
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,15 +25,115 @@
     <link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet'>
     <link rel="stylesheet" href="sidebarstyle.css">
     <title>dashboard</title>
+    <link href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" rel=" stylesheet">
+	<!--Replace with your tailwind.css once created-->
+
+
+	<!--Regular Datatables CSS-->
+	<link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
+	<!--Responsive Extension Datatables CSS-->
+	<link href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css" rel="stylesheet">
+
+	<style>
+		/*Overrides for Tailwind CSS */
+  
+		/*Form fields*/
+		.dataTables_wrapper select,
+		.dataTables_wrapper .dataTables_filter input {
+			color: #4a5568;
+			/*text-gray-700*/
+			padding-left: 1rem;
+			/*pl-4*/
+			padding-right: 1rem;
+			/*pl-4*/
+			padding-top: .5rem;
+			/*pl-2*/
+			padding-bottom: .5rem;
+			/*pl-2*/
+			line-height: 1.25;
+			/*leading-tight*/
+			border-width: 2px;
+			/*border-2*/
+			border-radius: .25rem;
+			border-color: #edf2f7;
+			/*border-gray-200*/
+			background-color: #edf2f7;
+			/*bg-gray-200*/
+		}
+
+		/*Row Hover*/
+		table.dataTable.hover tbody tr:hover,
+		table.dataTable.display tbody tr:hover {
+			background-color: #ebf4ff;
+			/*bg-indigo-100*/
+		}
+
+		/*Pagination Buttons*/
+		.dataTables_wrapper .dataTables_paginate .paginate_button {
+			font-weight: 700;
+			/*font-bold*/
+			border-radius: .25rem;
+			/*rounded*/
+			border: 1px solid transparent;
+			/*border border-transparent*/
+		}
+
+		/*Pagination Buttons - Current selected */
+		.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+			color: #fff !important;
+			/*text-white*/
+			box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
+			/*shadow*/
+			font-weight: 700;
+			/*font-bold*/
+			border-radius: .25rem;
+			/*rounded*/
+			background: #667eea !important;
+			/*bg-indigo-500*/
+			border: 1px solid transparent;
+			/*border border-transparent*/
+		}
+
+		/*Pagination Buttons - Hover */
+		.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+			color: #fff !important;
+			/*text-white*/
+			box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
+			/*shadow*/
+			font-weight: 700;
+			/*font-bold*/
+			border-radius: .25rem;
+			/*rounded*/
+			background: #667eea !important;
+			/*bg-indigo-500*/
+			border: 1px solid transparent;
+			/*border border-transparent*/
+		}
+
+		/*Add padding to bottom border */
+		table.dataTable.no-footer {
+			border-bottom: 1px solid #e2e8f0;
+			/*border-b-1 border-gray-300*/
+			margin-top: 0.75em;
+			margin-bottom: 0.75em;
+		}
+
+		/*Change colour of responsive icon*/
+		table.dataTable.dtr-inline.collapsed>tbody>tr>td:first-child:before,
+		table.dataTable.dtr-inline.collapsed>tbody>tr>th:first-child:before {
+			background-color: #667eea !important;
+			/*bg-indigo-500*/
+		}
+	</style>
 </head>
 <body>
     <nav class="sidebar">
         <i class="arrow fa-solid fa-angles-right"></i>
-        <div class="navitem">
+        <div class="navitem active" onclick="navitems(this)" >
             <i class="fa-solid fa-chart-line"></i>
              <span>Dashboard</span> 
         </div>
-        <div class="navitem">
+        <div class="navitem" onclick="navitems(this)">
             <i class="fa-solid fa-table-cells-large"></i>
              <span>Songs</span> 
         </div>
@@ -26,54 +141,36 @@
             <i class="fa-solid fa-plus"></i>
              <span>Add Songs</span> 
         </div>
-        <div class="navitem">
+        <form action="" method="post"><input type="submit" class="d-none" value="" name="logout" id="logoutbtn"></form>
+        <div class="navitem" onclick="getElementById('logoutbtn').click()">
             <i class="fa-solid fa-arrow-right-from-bracket"></i>
              <span>Logout</span> 
         </div>
+      
     </nav>
     <nav class="navbar">
-        <div class="search">
-            <input type="text">
-            <i class="fa-solid fa-magnifying-glass"></i>
-        </div>
-        
         <div style="font-family: Orbitron;" id="MyClockDisplay" class="clock">hhhhhhhhhhhhhhhhh</div>
     </nav>
-    <!-- <div class="modl">
-        <div class="popup">
-            <i class="fa-solid fa-xmark" onclick="popuphide()"></i>
-            <div class="form">
-                <div class="inputbox">
-                    <input type="text" id="name0" placeholder=" " required>
-                    <span> Song Name</span>
-                </div>
-                <span class="inputbox">
-                    <input type="text" id="singer0" placeholder=" " required>
-                    <span>Singer Name</span>
-                </span>
-                <div class="inputbox">
-                    <input type="text" id="album0" placeholder=" " required>
-                    <span>Album Name</span>
-                </div>
-                <div class="inputbox">
-                    <textarea name="" id="lyrics0" placeholder=" "></textarea>
-                    <span>lyrics</span>
-                </div>
-            </div>
-            <div class="popupfooter">
-                <button class="addbtn" onclick="addsongs()">Add Songs</button>
-            <div class="buttons">
-                <button onclick="addorremoveform(-1)"><i class="fa-solid fa-minus"></i></button>
-                <span id="counter">1</span>
-                <button onclick="addorremoveform(1)"><i class="fa-solid fa-plus"></i></button>
-            </div>
-            </div>
+
+    <nav class="phonesidebar">
+    <div class="navitem active"  onclick="navitems(this)">
+            <i class="fa-solid fa-chart-line"></i>
         </div>
-    </div> -->
+        <div class="navitem"  onclick="navitems(this)">
+            <i class="fa-solid fa-table-cells-large"></i>
+        </div>
+        <div class="navitem" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <i class="fa-solid fa-plus"></i>
+        </div>
+        <form action="" method="post"><input type="submit" class="d-none" value="" name="logout" id="logoutbtn"></form>
+        <div class="navitem" onclick="getElementById('logoutbtn').click()">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        </div>
+    </nav>
     
     <div class="cotainer">
-        <button style="background-color: #0f0;color:#333;outline:none;" class="btn rounded-pill fw-bold mt-1 outline-none" data-bs-toggle="modal" data-bs-target="#exampleModal">add song</button>
-        <div class="row w-100">
+        <button style="background-color: #0f0;color:#333;outline:none;" class="btn rounded-pill fw-bold m-1 outline-none" data-bs-toggle="modal" data-bs-target="#exampleModal">add song</button>
+        <div class="row w-100" id="statistics">
         <div class="p-1 col-12 col-md-6">
             <div class="card">
             <div class="card-body">
@@ -135,18 +232,27 @@
                         </div>
                         </div>
         </div>
-        <table id="txmpl" class="table table-striped cell-border" style="width:98%">
-            <thead>
-              <tr>
-                <th scope="col">Song Name</th>
-                <th scope="col">Singer Name</th>
-                <th scope="col">Album Name</th>
-                <th scope="col">Actions</th>
-              </tr>
-            </thead>
-            <tbody id="tablebody">
-            </tbody>
-          </table>
+          <div id='recipients' class="p-8 mt-6 lg:mt-0 rounded shadow bg-white d-none">
+
+
+			<table id="txmpl" class="stripe hover" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
+				<thead>
+					<tr>
+						<th data-priority="1">Song Name</th>
+						<th data-priority="2">Singer Name</th>
+						<th data-priority="3">Album Name</th>
+						<th data-priority="4">Actions</th>
+					</tr>
+				</thead>
+				<tbody id="tablebody">
+
+				</tbody>
+
+			</table>
+
+
+		</div>
+		<!--/Card-->
 </div>
   
   <!-- Modal -->
@@ -200,9 +306,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-
-        <p id="lyricscontent" contenteditable class="lh-base text-wrap text-center border p-3 border-primary border-3" onclick="getlyrics(this)" onblur="updatelyrics(this)"></p>
-        <p id="lyricsid" class="d-none" ></p>
+        <p id="lyricscontent" contenteditable class="lh-base text-wrap text-center border p-3 border-primary border-3 m-1"></p>
       </div>
     </div>
   </div>
@@ -212,12 +316,8 @@
   <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <script>
-  var lyricscheck = '';
-    function getlyrics(elem){
-      lyricscheck = elem.innerText;
-      console.log(lyricscheck);
-    }
-      function showTime(){
+
+    function showTime(){
     var date = new Date();
     var h = date.getHours(); // 0 - 23
     var m = date.getMinutes(); // 0 - 59
@@ -299,7 +399,7 @@ function addorremoveform(num){
 document.getElementById("counter").innerText = formscount;
 }
 
-function addsongs(){
+async function addsongs(){
     for(let i = 0;i<formscount;i++){
         
     let name = document.getElementById('name'+i).value;
@@ -307,31 +407,44 @@ function addsongs(){
     let album = document.getElementById('album'+i).value;
     let lyrics = document.getElementById('lyrics'+i).value;
     let data =[name,singer,album,lyrics];
-    fetch("script.php?action=add&data="+JSON.stringify(data))
-}
+    await fetch("script.php?action=add&data="+JSON.stringify(data))
+    }
+    document.querySelector('.btn-close').click();
+    getsongs();
+
 }
 
 getsongs()
 
 async function getsongs(){
+  if ($.fn.DataTable.isDataTable('#txmpl')){
+    $('#txmpl').dataTable().fnClearTable();
+    $('#txmpl').dataTable().fnDestroy();
+ }
     let myObject = await fetch('script.php?action=get');
     let res = await myObject.json();
     let tbody = document.getElementById('tablebody')
     tbody.innerHTML=``;
-    res.forEach(row => {
+    await res.forEach(row => {
         tbody.innerHTML+=`
         <tr>
-                <th scope="row" contenteditable>${row.song_name}</th>
-                <td contenteditable>${row.singer_name}</td>
-                <td contenteditable>${row.album_name}</td>
-                <td contenteditable><button data-bs-toggle="modal" data-bs-target="#lyricsModal" class="btn btn-success" onclick="showlyrics('${row.lyrics}',${row.id})">See Lyrics</button><button onclick="deletesong(${row.id})" class="btn ms-1 btn-danger">Delete</button></td>
+                <th scope="row" contenteditable onblur='update(this,"song_name",${row.id})'>${row.song_name}</th>
+                <td contenteditable onblur='update(this,"singer_name",${row.id})'>${row.singer_name}</td>
+                <td contenteditable onblur='update(this,"album_name",${row.id})'>${row.album_name}</td>
+                <td ><button data-bs-toggle="modal" data-bs-target="#lyricsModal" class="btn btn-success text-nowrap" onclick="showlyrics('${row.lyrics}',${row.id})">See Lyrics</button><button onclick="deletesong(${row.id})" class="btn m-1 btn-danger">Delete</button></td>
         </tr>
         `;
 
     });
-    $(document).ready(function () {
-    $('#txmpl').DataTable();
+    
+  $(document).ready(function() {
+  var table = $('#txmpl').DataTable({
+    responsive: true
+  })
+  .columns.adjust()
+  .responsive.recalc();
 });
+
 }
 
 async function deletesong(id){
@@ -341,27 +454,51 @@ async function deletesong(id){
 
 function showlyrics(lyrics,id){
   document.getElementById('lyricscontent').innerText = lyrics;
-  document.getElementById('lyricsid').innerText = id;
-
+  document.getElementById('lyricscontent').setAttribute('onblur','update(this,"lyrics",'+id+')');
 }
 
-function updatelyrics(elem){
-  let id = document.getElementById('lyricsid').innerText
-  if(elem.innerText != lyricscheck){
-  fetch('script.php?action=updatelyrics&lyrics='+elem.innerText+'&id='+id)
-}}
+function update(elem,where,id){
+  let content = elem.innerText;
+  console.log(content,where,id);
+  fetch('script.php?action=update&where='+where+'&id='+id+'&content='+content)
+}
 
 async function getstatistics(){
   let myObject = await fetch('script.php?action=getstatistics');
     let res = await myObject.json();
-    console.log(res);
-    document.getElementById('usercount').innerText = res.usercount
-    document.getElementById('singerscount').innerText = res.singerscount
-    document.getElementById('albumscount').innerText = res.albumscount
-    document.getElementById('songscount').innerText = res.songscount
+    document.getElementById('usercount').innerText = res.usercount +' User'
+    document.getElementById('singerscount').innerText = res.singerscount +' Singer'
+    document.getElementById('albumscount').innerText = res.albumscount +' Album'
+    document.getElementById('songscount').innerText = res.songscount +' Song'
 }
 
 getstatistics()
+
+function navitems(elem){
+  let navitems = document.getElementsByClassName('navitem');
+  Array.from(navitems).forEach(item=>{
+    item.classList.remove('active');
+  })
+  elem.classList.add('active');
+  document.getElementById('statistics').classList.toggle('d-none')
+  document.getElementById('recipients').classList.toggle('d-none')
+}
+
 </script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+	<!--Datatables -->
+	<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+	<!-- <script>
+		$(document).ready(function() {
+
+			var table = $('#example').DataTable({
+					responsive: true
+				})
+				.columns.adjust()
+				.responsive.recalc();
+		});
+	</script> -->
 </body>
 </html>

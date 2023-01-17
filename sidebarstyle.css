@@ -6,6 +6,7 @@
 
 .cotainer {
   padding-left: 6rem;
+  padding-right: 15px;
 }
 
 .sidebar {
@@ -33,6 +34,10 @@
   align-items: center;
   justify-content: space-evenly;
 }
+.sidebar .navitem.active {
+  background-color: #0f0;
+  color: #333;
+}
 .sidebar .navitem:hover {
   background-color: #0f0;
   color: #333;
@@ -59,7 +64,6 @@
   align-items: center;
   justify-content: end;
   padding-right: 10px;
-  padding-bottom: 45px;
 }
 .navbar .search {
   position: relative;
@@ -204,4 +208,48 @@
   cursor: pointer;
   color: #fff;
   font-size: x-large;
+}
+
+.phonesidebar {
+  position: fixed;
+  background-color: #333;
+  width: 100%;
+  height: 5rem;
+  z-index: 999;
+  display: none;
+  left: 0;
+  bottom: 0;
+  color: #fff;
+  align-items: center;
+  justify-content: space-evenly;
+  font-size: xx-large;
+}
+.phonesidebar .navitem {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.phonesidebar .navitem.active {
+  background-color: #0f0;
+  color: #333;
+}
+.phonesidebar .navitem:hover {
+  background-color: #0f0;
+  color: #333;
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .sidebar {
+    display: none;
+  }
+  .cotainer {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .phonesidebar {
+    display: flex;
+  }
 }/*# sourceMappingURL=sidebarstyle.css.map */

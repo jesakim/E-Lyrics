@@ -45,10 +45,10 @@ class song extends dbcon{
         $exe ->execute([$this->song_name,$this->singer_name,$this->album_name,$this->lyrics,$id]); 
     }
 
-    function updatelyrics($id){
-        $sql = 'UPDATE `songs` SET `lyrics`=? WHERE id = ?';
+    static function update($where,$content,$id){
+        $sql = 'UPDATE `songs` SET '.$where.' = ? WHERE id = ?';
         $exe = self::conn() -> prepare($sql);
-        $exe ->execute([$this->lyrics,$id]); 
+        $exe ->execute([$content,intval($id)]);
     }
 
     static function getsongs(){
@@ -87,9 +87,8 @@ if(isset($_GET['action'])){
        echo json_encode( song::getsongs());
     }elseif ($_GET['action']=='delete') {
         song::deletesong($_GET['id']);
-    }elseif ($_GET['action']=='updatelyrics') {
-        $song = new song('','','',$_GET['lyrics']);
-        $song->updatelyrics($_GET['id']);
+    }elseif ($_GET['action']=='update') {
+        song::update($_GET['where'],$_GET['content'],$_GET['id']);
     }elseif ($_GET['action']=='getstatistics') {
         echo json_encode(song::getstatistics());
     }
