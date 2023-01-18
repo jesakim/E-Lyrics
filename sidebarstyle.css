@@ -7,8 +7,61 @@
 .cotainer {
   padding-left: 6rem;
   padding-right: 15px;
+  margin-bottom: 2rem;
 }
 
+.infomsg {
+  position: relative;
+  padding: 20px;
+  left: 0;
+  width: 100%;
+  border-radius: 5px;
+  font-size: larger;
+  align-items: center;
+  display: none;
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+.infomsg i {
+  position: absolute;
+  font-size: xx-large;
+}
+.infomsg.active {
+  display: flex;
+}
+.infomsg.active::after {
+  content: "";
+  height: 5px;
+  width: 100%;
+  background-color: #0f0;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  -webkit-animation: animw 5s linear;
+          animation: animw 5s linear;
+}
+.infomsg .msg {
+  margin-left: 40px;
+  text-transform: capitalize;
+}
+
+@-webkit-keyframes animw {
+  0% {
+    width: 100%;
+  }
+  100% {
+    width: 0;
+  }
+}
+
+@keyframes animw {
+  0% {
+    width: 100%;
+  }
+  100% {
+    width: 0;
+  }
+}
 .sidebar {
   height: 110vh;
   width: 5rem;
@@ -19,6 +72,7 @@
   padding-top: 50px;
   z-index: 999;
   transition: width 0.5s ease;
+  overflow: hidden;
 }
 .sidebar .arrow {
   font-size: xx-large;
@@ -248,6 +302,7 @@
   .cotainer {
     padding-left: 15px;
     padding-right: 15px;
+    margin-bottom: 6rem;
   }
   .phonesidebar {
     display: flex;

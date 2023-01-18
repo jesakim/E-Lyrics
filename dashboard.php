@@ -129,11 +129,11 @@ if(!isset($_SESSION['user'])){
 <body>
     <nav class="sidebar">
         <i class="arrow fa-solid fa-angles-right"></i>
-        <div class="navitem active" onclick="navitems(this)" >
+        <div class="navitem fnav active" onclick="fnav(this)" >
             <i class="fa-solid fa-chart-line"></i>
              <span>Dashboard</span> 
         </div>
-        <div class="navitem" onclick="navitems(this)">
+        <div class="navitem snav" onclick="snav(this)">
             <i class="fa-solid fa-table-cells-large"></i>
              <span>Songs</span> 
         </div>
@@ -153,10 +153,10 @@ if(!isset($_SESSION['user'])){
     </nav>
 
     <nav class="phonesidebar">
-    <div class="navitem active"  onclick="navitems(this)">
+    <div class="navitem fnav active"  onclick="fnav(this)">
             <i class="fa-solid fa-chart-line"></i>
         </div>
-        <div class="navitem"  onclick="navitems(this)">
+        <div class="navitem snav"  onclick="snav(this)">
             <i class="fa-solid fa-table-cells-large"></i>
         </div>
         <div class="navitem" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -170,7 +170,8 @@ if(!isset($_SESSION['user'])){
     
     <div class="cotainer">
         <button style="background-color: #0f0;color:#333;outline:none;" class="btn rounded-pill fw-bold m-1 outline-none" data-bs-toggle="modal" data-bs-target="#exampleModal">add song</button>
-        <div class="row w-100" id="statistics">
+        <div class="infomsg" ><i class="fa-solid fa-triangle-exclamation"></i> <div class="msg text-break">gvrefzezferegreggrgrgverzgerzgergreergfregergergregre erg ergerg erg  r vgergegerge</div></div>
+        <div class="row w-100 m-0" id="statistics">
         <div class="p-1 col-12 col-md-6">
             <div class="card">
             <div class="card-body">
@@ -232,16 +233,17 @@ if(!isset($_SESSION['user'])){
                         </div>
                         </div>
         </div>
-          <div id='recipients' class="p-8 mt-6 lg:mt-0 rounded shadow bg-white d-none">
+          <div id='recipients' class="p-2 mt-2 rounded shadow bg-white d-none overflow-auto">
 
 
-			<table id="txmpl" class="stripe hover" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
+			<table id="txmpl" class="stripe hover " style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
 				<thead>
 					<tr>
 						<th data-priority="1">Song Name</th>
 						<th data-priority="2">Singer Name</th>
 						<th data-priority="3">Album Name</th>
-						<th data-priority="4">Actions</th>
+						<th data-priority="4">Created At</th>
+						<th data-priority="5">Actions</th>
 					</tr>
 				</thead>
 				<tbody id="tablebody">
@@ -316,7 +318,23 @@ if(!isset($_SESSION['user'])){
   <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <script>
-
+  var mytimeout;
+function showinfomsg(bgcolor,color,msg,icon){
+  clearTimeout(mytimeout);
+  let infomsg = document.getElementsByClassName('infomsg')[0]
+  infomsg.style.backgroundColor = bgcolor;
+  infomsg.style.color = color;
+  infomsg.children[1].innerText= msg;
+  infomsg.children[0].classList= icon;
+  infomsg.classList.remove('active')
+  setTimeout(() => {
+    infomsg.classList.add('active')
+  }, 0);
+  mytimeout = setTimeout(() => {
+    infomsg.classList.remove('active')
+  }, 5000);
+  
+}
     function showTime(){
     var date = new Date();
     var h = date.getHours(); // 0 - 23
@@ -346,35 +364,34 @@ if(!isset($_SESSION['user'])){
 showTime();
 var modal = document.getElementsByClassName("modal-body")[0]
 
-function popuphide(){
-    modal.innerHTML = `<div class="row">
-                <div class="form-floating mb-1 col-12">
-                    <input type="text" class="form-control" id="name0" placeholder="name@example.com">
-                    <label for="floatingInput">Song Name</label>
-                  </div>
-                  <div class="form-floating col-6">
-                    <input type="text" class="form-control" id="singer0" placeholder="Password">
-                    <label for="floatingPassword">Singer Name</label>
-                  </div>
-                  <div class="form-floating col-6">
-                    <input type="text" class="form-control" id="album0" placeholder="name@example.com">
-                    <label for="floatingInput">Album Name</label>
-                  </div>
-                  <div class="form-floating col-12 mt-1">
-                    <textarea class="form-control" placeholder="Leave a comment here" id="lyrics0"></textarea>
-                    <label for="floatingTextarea">lyrics</label>
-                  </div>
-            </div>`
-    formscount = 1
-    document.getElementById("counter").innerText = formscount;
-}
+// function popuphide(){
+//     modal.innerHTML = `<div class="row">
+//                 <div class="form-floating mb-1 col-12">
+//                     <input type="text" class="form-control" id="name0" placeholder="name@example.com">
+//                     <label for="floatingInput">Song Name</label>
+//                   </div>
+//                   <div class="form-floating col-6">
+//                     <input type="text" class="form-control" id="singer0" placeholder="Password">
+//                     <label for="floatingPassword">Singer Name</label>
+//                   </div>
+//                   <div class="form-floating col-6">
+//                     <input type="text" class="form-control" id="album0" placeholder="name@example.com">
+//                     <label for="floatingInput">Album Name</label>
+//                   </div>
+//                   <div class="form-floating col-12 mt-1">
+//                     <textarea class="form-control" placeholder="Leave a comment here" id="lyrics0"></textarea>
+//                     <label for="floatingTextarea">lyrics</label>
+//                   </div>
+//             </div>`
+//     formscount = 1
+//     document.getElementById("counter").innerText = formscount;
+// }
 
 var formscount = 1
 
 function addorremoveform(num){
     formscount += num
     if(formscount < 1){formscount=1}
-    console.log(formscount);
     modal.innerHTML=``
     for(let i = 0;i<formscount;i++){
         modal.innerHTML+=`<div class="row my-1">
@@ -400,25 +417,44 @@ document.getElementById("counter").innerText = formscount;
 }
 
 async function addsongs(){
+  let insertcount = 0;
     for(let i = 0;i<formscount;i++){
         
-    let name = document.getElementById('name'+i).value;
-    let singer = document.getElementById('singer'+i).value;
-    let album = document.getElementById('album'+i).value;
-    let lyrics = document.getElementById('lyrics'+i).value;
-    let data =[name,singer,album,lyrics];
-    await fetch("script.php?action=add&data="+JSON.stringify(data))
+    let name = datacheck(document.getElementById('name'+i).value);
+    let singer = datacheck(document.getElementById('singer'+i).value);
+    let album = datacheck(document.getElementById('album'+i).value);
+    let lyrics = datacheck(document.getElementById('lyrics'+i).value);
+    if(name!='' && singer!='' && album!='' && lyrics!='' ){
+      let data =[name,singer,album,lyrics];
+      await fetch("script.php?action=add&data="+JSON.stringify(data))
+      insertcount++;
+    }
+    }
+    if(insertcount == formscount){
+      showinfomsg('green','white','All Songs Added Successfully','fa-solid fa-triangle-exclamation')
+    }else{
+      showinfomsg('red','white','Not All Songs Added Successfully','fa-solid fa-xmark')
     }
     document.querySelector('.btn-close').click();
     getsongs();
+    getstatistics();
+    
+
+}
+
+function datacheck(str){
+  str = str.replace(/[^a-zA-Z0-9 ]/g, "");
+  str = str.replace(/(<([^>]+)>)/gi, "");
+  str = str.replaceAll("  ","");
+  str = str.trim();
+  return str;
 
 }
 
 getsongs()
-
+var table;
 async function getsongs(){
   if ($.fn.DataTable.isDataTable('#txmpl')){
-    $('#txmpl').dataTable().fnClearTable();
     $('#txmpl').dataTable().fnDestroy();
  }
     let myObject = await fetch('script.php?action=get');
@@ -431,15 +467,16 @@ async function getsongs(){
                 <th scope="row" contenteditable onblur='update(this,"song_name",${row.id})'>${row.song_name}</th>
                 <td contenteditable onblur='update(this,"singer_name",${row.id})'>${row.singer_name}</td>
                 <td contenteditable onblur='update(this,"album_name",${row.id})'>${row.album_name}</td>
-                <td ><button data-bs-toggle="modal" data-bs-target="#lyricsModal" class="btn btn-success text-nowrap" onclick="showlyrics('${row.lyrics}',${row.id})">See Lyrics</button><button onclick="deletesong(${row.id})" class="btn m-1 btn-danger">Delete</button></td>
+                <td contenteditable onblur='update(this,"created_at",${row.id})'>${row.created_at}</td>
+                <td ><button data-bs-toggle="modal" data-bs-target="#lyricsModal" class="btn btn-success text-nowrap" onclick="showlyrics('${row.lyrics}',${row.id})">See Lyrics</button><button onclick="deletesong(${row.id},this)" class="btn m-1 btn-danger">Delete</button></td>
         </tr>
         `;
 
     });
     
   $(document).ready(function() {
-  var table = $('#txmpl').DataTable({
-    responsive: true
+  table = $('#txmpl').DataTable({
+    // responsive: true
   })
   .columns.adjust()
   .responsive.recalc();
@@ -447,8 +484,9 @@ async function getsongs(){
 
 }
 
-async function deletesong(id){
+async function deletesong(id,elem){
     await fetch("script.php?action=delete&id="+id)
+    showinfomsg('green','white','Song deleted successfully','fa-regular fa-circle-check')
     getsongs()
 }
 
@@ -459,7 +497,6 @@ function showlyrics(lyrics,id){
 
 function update(elem,where,id){
   let content = elem.innerText;
-  console.log(content,where,id);
   fetch('script.php?action=update&where='+where+'&id='+id+'&content='+content)
 }
 
@@ -474,14 +511,34 @@ async function getstatistics(){
 
 getstatistics()
 
-function navitems(elem){
-  let navitems = document.getElementsByClassName('navitem');
-  Array.from(navitems).forEach(item=>{
+function fnav(elem){
+  getstatistics();
+  let snav = document.getElementsByClassName('snav');
+  Array.from(snav).forEach(item=>{
+    item.classList.remove('active');
+  })
+  let fnav = document.getElementsByClassName('fnav');
+  Array.from(fnav).forEach(item=>{
+    item.classList.add('active');
+  })
+  elem.classList.add('active');
+  document.getElementById('statistics').classList.remove('d-none')
+  document.getElementById('recipients').classList.add('d-none')
+}
+
+function snav(elem){
+  getsongs();
+  let snav = document.getElementsByClassName('snav');
+  Array.from(snav).forEach(item=>{
+    item.classList.add('active');
+  })
+  let fnav = document.getElementsByClassName('fnav');
+  Array.from(fnav).forEach(item=>{
     item.classList.remove('active');
   })
   elem.classList.add('active');
-  document.getElementById('statistics').classList.toggle('d-none')
-  document.getElementById('recipients').classList.toggle('d-none')
+  document.getElementById('statistics').classList.add('d-none')
+  document.getElementById('recipients').classList.remove('d-none')
 }
 
 </script>
@@ -490,15 +547,5 @@ function navitems(elem){
 	<!--Datatables -->
 	<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
-	<!-- <script>
-		$(document).ready(function() {
-
-			var table = $('#example').DataTable({
-					responsive: true
-				})
-				.columns.adjust()
-				.responsive.recalc();
-		});
-	</script> -->
 </body>
 </html>
