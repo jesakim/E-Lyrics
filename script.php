@@ -72,12 +72,6 @@ class song extends dbcon{
     }
 }
 
-// $song = new song('jjjjjjee','singer','album','lyrics');
-// $song->insertsong();
-// $song->updatesong(2);
-
-// var_dump(song::getsongs());
-
 if(isset($_GET['action'])){
     if($_GET['action']=='add'){
         $data = json_decode($_GET['data']);
