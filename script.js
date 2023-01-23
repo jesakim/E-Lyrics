@@ -108,12 +108,14 @@ async function addsongs(){
       let data =[name,singer,album,lyrics];
       await fetch("script.php?action=add&data="+JSON.stringify(data))
       insertcount++;
+    }else{
+      var err=i+1;
     }
     }
     if(insertcount == formscount){
       showinfomsg('green','white','All Songs Added Successfully','fa-solid fa-triangle-exclamation')
     }else{
-      showinfomsg('red','white','Not All Songs Added Successfully','fa-solid fa-xmark')
+      showinfomsg('red','white','Song N°'+err+' Not Added Successfully','fa-solid fa-xmark')
     }
     document.querySelector('.btn-close').click();
     getsongs();
